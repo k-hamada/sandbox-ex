@@ -1,0 +1,13 @@
+<div class="row">
+  <aside class="col-md-4">
+    <h2><%= Enum.count(@bookmarks) %></h2>
+    <%= for bookmark <- @bookmarks do %>
+    <section>
+      <h3><%= bookmark.title %></h3>
+      <p><a href="<%= bookmark.url %>"><%= bookmark.url %></a></p>
+      <%= link "Show", to: bookmark_path(@conn, :show, bookmark), class: "btn btn-default btn-xs" %>
+      <%= link "Edit", to: bookmark_path(@conn, :edit, bookmark), class: "btn btn-default btn-xs" %>
+    </section>
+    <% end %>
+  </aside>
+</div>

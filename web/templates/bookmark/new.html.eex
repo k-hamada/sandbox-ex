@@ -1,0 +1,19 @@
+<h1>New Bookmark</h1>
+
+<%= form_for @changeset, bookmark_path(@conn, :create), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Error</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :url, placeholder: "Url", class: "form-control" %>
+    <%= error_tag f, :url %>
+  </div>
+  <%= submit "Create", class: "btn btn-primary" %>
+<% end %>
