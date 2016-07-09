@@ -18,6 +18,11 @@
   </div>
 
   <div class="form-group">
+    <label class="control-label" for="bookmark_tags">tags</label>
+    <input class="form-control" id="bookmark_tags" name="bookmark[tags]" type="text" value="">
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
