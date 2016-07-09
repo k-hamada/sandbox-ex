@@ -18,6 +18,10 @@ defmodule Bookmarks.Router do
 
     get "/", PageController, :index
     resources "/bookmarks", BookmarkController
+    get "/tags", TagController, :index
+    get "/tags/:id", TagController, :show
+    delete "/tags/:id", TagController, :delete
+    get "/tag/:tag", TagController, :show_tag
   end
 
   # Other scopes may use custom stacks.

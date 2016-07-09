@@ -1,0 +1,8 @@
+<div class="row">
+  <aside class="col-md-12">
+    <%= for tag <- @tags do %>
+      <%= link "#{tag.title} (#{Enum.count(tag.bookmarks)})", to: tag_path(@conn, :show, tag.id), class: "btn btn-default btn" %>
+      <%= button "×", to: tag_path(@conn, :delete, tag), method: :delete, class: "btn btn-danger btn" %>
+    <% end %>
+  </aside>
+</div>

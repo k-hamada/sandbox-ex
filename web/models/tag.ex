@@ -17,4 +17,11 @@ defmodule Bookmarks.Tag do
     |> validate_required([:title])
     |> unique_constraint(:title)
   end
+
+  def ordered(query) do
+    query
+    |> join(:left, [t], b in assoc(t, :bookmarks))
+    |> order_by([t, b], desc: t.bookmarks)
+    |> select([t,b], t)
+  end
 end

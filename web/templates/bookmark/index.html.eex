@@ -8,7 +8,7 @@
       <%= if Enum.count(bookmark.tags) > 0 do %>
         <ul>
           <%= for tag <- bookmark.tags do %>
-            <li><%= tag.title %></li>
+            <li><%= link tag.title, to: tag_path(@conn, :show_tag, tag.title) %></li>
           <% end %>
         </ul>
       <% end %>

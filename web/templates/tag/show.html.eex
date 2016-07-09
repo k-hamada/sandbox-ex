@@ -1,0 +1,10 @@
+<%= if Enum.count(@tag.bookmarks) > 0 do %>
+  <ul>
+    <%= for bookmark <- @tag.bookmarks do %>
+      <li>
+        <%= link bookmark.title, to: bookmark.url %>
+        <%= link "edit", to: bookmark_path(@conn, :show, bookmark.id) %>
+      </li>
+    <% end %>
+  </ul>
+<%= end %>
