@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <label class="control-label" for="bookmark_tags">tags</label>
-    <input class="form-control" id="bookmark_tags" name="bookmark[tags]" type="text" value="">
+    <input class="form-control" id="bookmark_tags" name="bookmark[tags]" type="text" value="<%= @bookmark.tags |> Enum.map(fn(tag) -> tag.title end) |> Enum.join(",") %>">
   </div>
 
   <div class="form-group">

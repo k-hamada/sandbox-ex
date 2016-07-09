@@ -3,6 +3,13 @@
     <section>
       <h3><%= @bookmark.title %></h3>
       <p><a href="<%= @bookmark.url %>"><%= @bookmark.url %></a></p>
+      <%= if Enum.count(@bookmark.tags) > 0 do %>
+        <ul>
+          <%= for tag <- @bookmark.tags do %>
+            <li><%= tag.title %></li>
+          <% end %>
+        </ul>
+      <% end %>
       <%= link "Edit", to: bookmark_path(@conn, :edit, @bookmark), class: "btn btn-default btn-xs" %>
       <%= button "Delete", to: bookmark_path(@conn, :delete, @bookmark),
       method: :delete,

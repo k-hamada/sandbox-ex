@@ -18,30 +18,29 @@ defmodule Bookmarks.BookmarkController do
         conn
         |> put_flash(:info, "Create #{bookmark.title} / #{bookmark.url}")
         |> redirect(to: bookmark_path(conn, :index))
-
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def index(conn, _params) do
-    bookmarks = Repo.all(Bookmark)
+    bookmarks = Repo.all(Bookmark) |> Repo.preload(:tags)
     render conn, "index.html", bookmarks: bookmarks
   end
 
   def show(conn, %{"id" => id}) do
-    bookmark = Repo.get(Bookmark, id)
+    bookmark = Repo.get(Bookmark, id) |> Repo.preload(:tags)
     render conn, "show.html", bookmark: bookmark
   end
 
   def edit(conn, %{"id" => id}) do
-    bookmark = Repo.get(Bookmark, id)
+    bookmark = Repo.get(Bookmark, id) |> Repo.preload(:tags)
     changeset = Bookmark.changeset(bookmark)
     render(conn, "edit.html", bookmark: bookmark, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "bookmark" => bookmark_params}) do
-    bookmark = Repo.get(Bookmark, id)
+    bookmark = Repo.get(Bookmark, id) |> Repo.preload(:tags)
     changeset = Bookmark.changeset(bookmark, bookmark_params)
 
     case Repo.update(changeset) do
