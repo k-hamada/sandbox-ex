@@ -4,6 +4,7 @@ defmodule Bookmarks.Bookmark do
   schema "bookmarks" do
     field :title, :string
     field :url, :string
+    many_to_many :tags, Bookmarks.Tag, join_through: "bookmarks_tags"
 
     timestamps
   end
