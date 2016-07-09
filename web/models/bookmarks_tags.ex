@@ -13,4 +13,9 @@ defmodule Bookmarks.BookmarksTags do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def from_bookmark(query, bookmark_id) do
+    from bt in query,
+    where: bt.bookmark_id == ^bookmark_id
+  end
 end

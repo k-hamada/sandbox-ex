@@ -17,4 +17,9 @@ defmodule Bookmarks.Bookmark do
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:url)
   end
+
+  def ordered(query) do
+    query
+    |> order_by([t], desc: t.id)
+  end
 end

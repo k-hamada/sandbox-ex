@@ -14,7 +14,6 @@ defmodule Bookmarks.BookmarkController do
     case Repo.insert(changeset) do
       {:ok, bookmark} ->
         create_relation(bookmark, bookmark_params)
-
         conn
         |> put_flash(:info, "Create #{bookmark.title} / #{bookmark.url}")
         |> redirect(to: bookmark_path(conn, :index))
@@ -24,7 +23,10 @@ defmodule Bookmarks.BookmarkController do
   end
 
   def index(conn, _params) do
-    bookmarks = Repo.all(Bookmark) |> Repo.preload(:tags)
+    bookmarks = Bookmark
+    |> Bookmark.ordered
+    |> Repo.all
+    |> Repo.preload(:tags)
     render conn, "index.html", bookmarks: bookmarks
   end
 
@@ -63,26 +65,48 @@ defmodule Bookmarks.BookmarkController do
     |> redirect(to: bookmark_path(conn, :index))
   end
 
+
+
+  defp clear_bookmark_relation(bookmark) do
+    if Enum.count(bookmark.tags) > 0 do
+      BookmarksTags
+      |> BookmarksTags.from_bookmark(bookmark.id)
+      |> Repo.delete_all
+    end
+  end
+
+  defp parse_tags(tags) do
+    tags
+    |> String.trim
+    |> String.split(~r{\s?,\s?}, trim: true)
+    |> Enum.uniq
+  end
+
+  defp find_or_create_tag(tag) do
+    query = Tag |> where([t], t.title == ^tag)
+    if !Repo.one(query) do
+      Repo.insert(Tag.changeset(%Tag{}, %{title: tag}))
+    end
+    Repo.one(query)
+  end
+
+  defp create_bookmarks_tags(bookmark, tag) do
+    bt_changeset =
+      BookmarksTags.changeset(
+        %BookmarksTags{},
+        %{bookmark_id: bookmark.id, tag_id: tag.id}
+      )
+    Repo.insert(bt_changeset)
+  end
+
   defp create_relation(bookmark, bookmark_params) do
     case Dict.fetch(bookmark_params, "tags") do
       {:ok, tags} ->
-        if Enum.count(bookmark.tags) > 0 do
-          BookmarksTags |> where([t], t.bookmark_id == ^bookmark.id) |> Repo.delete_all
-        end
+        clear_bookmark_relation(bookmark)
 
-        String.split(tags, ",", trim: true)
-        |> Enum.map(fn(tag) ->
-          query = Tag |> where([t], t.title == ^tag)
-          if !Repo.one(query) do
-            Repo.insert(Tag.changeset(%Tag{}, %{title: tag}))
-          end
-          Repo.one(query)
-        end)
-        |> Enum.each(fn(tag_repo) ->
-            bt_changeset =
-              BookmarksTags.changeset(%BookmarksTags{}, %{bookmark_id: bookmark.id, tag_id: tag_repo.id})
-            Repo.insert(bt_changeset)
-        end)
+        parse_tags(tags)
+        |> Enum.map(&find_or_create_tag(&1))
+        |> Enum.each(&create_bookmarks_tags(bookmark, &1))
     end
   end
 end
