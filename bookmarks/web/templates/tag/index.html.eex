@@ -1,8 +1,26 @@
 <div class="row">
-  <aside class="col-md-12">
+  <h2>tags</h2>
+  <ul class="nav nav-pills">
     <%= for tag <- @tags do %>
-      <%= link "#{tag.title} (#{Enum.count(tag.bookmarks)})", to: tag_path(@conn, :show, tag.id), class: "btn btn-default btn" %>
-      <%= button "×", to: tag_path(@conn, :delete, tag), method: :delete, class: "btn btn-danger btn" %>
+      <li role="presentation">
+        <%= link to: tag_path(@conn, :show_tag, tag.title) do %>
+          <%= tag.title %>
+          <span class="badge"><%= Enum.count(tag.bookmarks) %></span>
+        <% end %>
+      </li>
     <% end %>
-  </aside>
+  </ul>
+
+  <hr>
+
+  <h2>remove</h2>
+  <ul class="list-unstyled">
+    <%= for tag <- @tags do %>
+      <li>
+        <%= link to: tag_path(@conn, :delete, tag), method: :delete, class: "btn btn-danger" do %>
+          <%= tag.title %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>

@@ -1,0 +1,9 @@
+<header class="header">
+  <nav role="navigation">
+    <ul class="nav nav-pills pull-right">
+      <li><%= link "Tags", to: tag_path(@conn, :index) %>
+      <li><%= link "Bookmarks", to: bookmark_path(@conn, :index) %>
+      <li><%= link "+", to: bookmark_path(@conn, :new), class: "btn btn-primary btn-xs" %>
+    </ul>
+  </nav>
+</header>

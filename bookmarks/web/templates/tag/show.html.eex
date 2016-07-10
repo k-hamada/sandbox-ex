@@ -1,10 +1,13 @@
+<h2>tag: <%= @tag.title %></h2>
 <%= if Enum.count(@tag.bookmarks) > 0 do %>
-  <ul>
+  <ol>
     <%= for bookmark <- @tag.bookmarks do %>
       <li>
         <%= link bookmark.title, to: bookmark.url %>
-        <%= link "edit", to: bookmark_path(@conn, :show, bookmark.id) %>
+        <%= link to: bookmark_path(@conn, :show, bookmark.id) do %>
+          <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
+        <% end %>
       </li>
     <% end %>
-  </ul>
+  </ol>
 <%= end %>

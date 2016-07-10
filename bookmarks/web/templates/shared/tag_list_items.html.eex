@@ -1,0 +1,9 @@
+<%= if Enum.count(@bookmark.tags) > 0 do %>
+  <ul class="list-inline">
+    <%= for tag <- @bookmark.tags do %>
+      <li>
+        <%= link tag.title, to: tag_path(@conn, :show_tag, tag.title) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

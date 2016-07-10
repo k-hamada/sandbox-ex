@@ -1,20 +1,14 @@
 <div class="row">
   <aside class="col-md-4">
-    <h2><%= Enum.count(@bookmarks) %></h2>
     <%= for bookmark <- @bookmarks do %>
-    <section>
-      <h3><%= bookmark.title %></h3>
-      <p><a href="<%= bookmark.url %>"><%= bookmark.url %></a></p>
-      <%= if Enum.count(bookmark.tags) > 0 do %>
-        <ul>
-          <%= for tag <- bookmark.tags do %>
-            <li><%= link tag.title, to: tag_path(@conn, :show_tag, tag.title) %></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <%= link "Show", to: bookmark_path(@conn, :show, bookmark), class: "btn btn-default btn-xs" %>
-      <%= link "Edit", to: bookmark_path(@conn, :edit, bookmark), class: "btn btn-default btn-xs" %>
-    </section>
+      <section>
+        <h3>
+          <%= bookmark.title %>
+          <small><%= link bookmark.url, to: bookmark.url %></small>
+        </h3>
+        <%= render Bookmarks.SharedView, "tag_list_items.html", conn: @conn, bookmark: bookmark %>
+        <%= render Bookmarks.SharedView, "bookmark_buttons.html", conn: @conn, bookmark: bookmark, show: true, edit: true %>
+      </section>
     <% end %>
   </aside>
 </div>

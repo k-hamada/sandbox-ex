@@ -1,0 +1,17 @@
+<%= if assigns[:show] do %>
+  <%= link to: bookmark_path(@conn, :show, @bookmark), class: "btn btn-xs" do %>
+    <i class="fa fa-info-circle" title="Show" aria-hidden="true"></i>
+  <%= end %>
+<%= end %>
+
+<%= if assigns[:edit] do %>
+  <%= link to: bookmark_path(@conn, :edit, @bookmark), class: "btn btn-xs" do %>
+    <i class="fa fa-pencil" title="Edit" aria-hidden="true"></i>
+  <%= end %>
+<%= end %>
+
+<%= if assigns[:delete] do %>
+  <%= link to: bookmark_path(@conn, :delete, @bookmark), method: :delete, onclick: "return confirm(\"ok?\");", class: "btn btn-danger btn-xs" do %>
+    <i class="fa fa-trash" title="Delete" aria-hidden="true"></i>
+  <%= end %>
+<%= end %>
