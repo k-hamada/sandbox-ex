@@ -102,7 +102,7 @@ defmodule Bookmarks.BookmarkController do
   defp create_relation(bookmark, bookmark_params) do
     case Dict.fetch(bookmark_params, "tags") do
       {:ok, tags} ->
-        clear_bookmark_relation(bookmark)
+        clear_bookmark_relation(bookmark |> Repo.preload(:tags))
 
         parse_tags(tags)
         |> Enum.map(&find_or_create_tag(&1))
