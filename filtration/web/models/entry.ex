@@ -1,10 +1,11 @@
 defmodule Filtration.Entry do
   use Filtration.Web, :model
+  use Calecto.Schema, usec: true
 
   schema "entries" do
     field :url, :string
     field :title, :string
-    field :registered_at, Ecto.DateTime
+    field :registered_at, Calecto.DateTimeUTC
     field :is_exclude, :boolean, default: false
 
     timestamps()
