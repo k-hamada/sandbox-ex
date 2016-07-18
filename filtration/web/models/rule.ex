@@ -17,4 +17,14 @@ defmodule Filtration.Rule do
     |> cast(params, [:rule, :is_regex, :is_domain])
     |> validate_required([:rule, :is_regex, :is_domain])
   end
+
+  def only_regex(query) do
+    query
+    |> where(is_regex: true)
+  end
+
+  def only_domain(query) do
+    query
+    |> where(is_domain: true)
+  end
 end
