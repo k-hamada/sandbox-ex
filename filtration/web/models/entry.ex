@@ -18,5 +18,6 @@ defmodule Filtration.Entry do
     struct
     |> cast(params, [:url, :title, :registered_at, :is_exclude])
     |> validate_required([:url, :title, :registered_at, :is_exclude])
+    |> unique_constraint(:url)
   end
 end
