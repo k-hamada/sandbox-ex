@@ -3,24 +3,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Url</th>
-      <th>Title</th>
-      <th>Registered at</th>
-      <th>Is exclude</th>
-
+      <th>Site</th>
+      <th>Registered</th>
+      <th>Exclude</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for entry <- @entries do %>
     <tr>
-      <td><%= entry.url %></td>
-      <td><%= entry.title %></td>
+      <td><%= link entry.title, to: entry.url %></td>
       <td><%= entry.registered_at %></td>
       <td><%= entry.is_exclude %></td>
 
       <td class="text-right">
-        <%= link "Show", to: entry_path(@conn, :show, entry), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: entry_path(@conn, :edit, entry), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: entry_path(@conn, :delete, entry), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
@@ -28,5 +24,3 @@
 <% end %>
   </tbody>
 </table>
-
-<%= link "New entry", to: entry_path(@conn, :new) %>

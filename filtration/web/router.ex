@@ -16,9 +16,7 @@ defmodule Filtration.Router do
   scope "/", Filtration do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-
-    resources "/entries", EntryController
+    resources "/", EntryController, only: [:index, :edit, :delete, :update]
   end
 
   # Other scopes may use custom stacks.
