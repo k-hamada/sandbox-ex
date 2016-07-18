@@ -1,0 +1,30 @@
+<h2>Listing rules</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Is regex</th>
+      <th>Is domain</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for rule <- @rules do %>
+    <tr>
+      <td><%= rule.rule %></td>
+      <td><%= rule.is_regex %></td>
+      <td><%= rule.is_domain %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: rule_path(@conn, :show, rule), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: rule_path(@conn, :edit, rule), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: rule_path(@conn, :delete, rule), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New rule", to: rule_path(@conn, :new) %>

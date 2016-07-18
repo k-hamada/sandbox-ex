@@ -1,0 +1,23 @@
+<h2>Show rule</h2>
+
+<ul>
+
+  <li>
+    <strong>Rule:</strong>
+    <%= @rule.rule %>
+  </li>
+
+  <li>
+    <strong>Is regex:</strong>
+    <%= @rule.is_regex %>
+  </li>
+
+  <li>
+    <strong>Is domain:</strong>
+    <%= @rule.is_domain %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: rule_path(@conn, :edit, @rule) %>
+<%= link "Back", to: rule_path(@conn, :index) %>

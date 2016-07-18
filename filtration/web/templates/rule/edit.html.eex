@@ -1,0 +1,6 @@
+<h2>Edit rule</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: rule_path(@conn, :update, @rule) %>
+
+<%= link "Back", to: rule_path(@conn, :index) %>
