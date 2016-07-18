@@ -20,4 +20,9 @@ defmodule Filtration.Entry do
     |> validate_required([:url, :title, :registered_at, :is_exclude])
     |> unique_constraint(:url)
   end
+
+  def ordered(query) do
+    query
+    |> order_by([t], desc: t.registered_at)
+  end
 end

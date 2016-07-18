@@ -4,7 +4,10 @@ defmodule Filtration.EntryController do
   alias Filtration.Entry
 
   def index(conn, _params) do
-    entries = Repo.all(Entry)
+    entries =
+      Entry
+      |> Entry.ordered
+      |> Repo.all
     render(conn, "index.html", entries: entries)
   end
 
