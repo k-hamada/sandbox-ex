@@ -13,7 +13,7 @@
 <%= for entry <- @entries do %>
     <tr>
       <td><%= link entry.title, to: entry.url %></td>
-      <td><%= entry.registered_at %></td>
+      <td><%= format_datetime entry.registered_at %></td>
       <td><%= entry.is_exclude %></td>
 
       <td class="text-right">
