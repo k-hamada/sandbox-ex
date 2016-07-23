@@ -25,4 +25,9 @@ defmodule Filtration.Entry do
     query
     |> order_by([t], desc: t.registered_at)
   end
+
+  def is_exclude(query, flag) do
+    query
+    |> where(is_exclude: ^flag)
+  end
 end
