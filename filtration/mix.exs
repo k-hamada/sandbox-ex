@@ -19,7 +19,7 @@ defmodule Filtration.Mixfile do
   def application do
     [mod: {Filtration, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+                    :phoenix_ecto, :postgrex, :httpoison, :quantum]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,6 +41,7 @@ defmodule Filtration.Mixfile do
      {:httpoison, "~> 0.9.0"},
      {:floki, "~> 0.9.0"},
      {:calecto, "~> 0.16.0"},
+     {:quantum, ">= 1.7.1"},
     ]
   end
 

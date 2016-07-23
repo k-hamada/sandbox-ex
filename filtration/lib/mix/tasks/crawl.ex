@@ -8,6 +8,10 @@ defmodule Mix.Tasks.Crawl do
 
   def run(_args) do
     Mix.Task.run "app.start"
+    fetch
+  end
+
+  def fetch do
     @url
     |> HTTPoison.get
     |> evaluate
