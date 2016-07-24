@@ -7,6 +7,7 @@ defmodule Filtration.EntryController do
     entries =
       Entry
       |> Entry.ordered
+      |> Entry.is_exclude(false)
       |> Repo.all
     render(conn, "index.html", entries: entries)
   end

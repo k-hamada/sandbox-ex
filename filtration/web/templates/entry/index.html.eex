@@ -1,26 +1,19 @@
-<h2>Listing entries</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Site</th>
-      <th>Registered</th>
-      <th>Exclude</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
 <%= for entry <- @entries do %>
-    <tr>
-      <td><%= link entry.title, to: entry.url %></td>
-      <td><%= format_datetime entry.registered_at %></td>
-      <td><%= entry.is_exclude %></td>
-
-      <td class="text-right">
-        <%= link "Edit", to: entry_path(@conn, :edit, entry), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: entry_path(@conn, :delete, entry), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+  <div class="row">
+    <div class="two columns">
+      <%= format_datetime entry.registered_at %>
+    </div>
+    <div class="seven columns">
+      <%= link entry.title, to: entry.url %>
+    </div>
+    <div class="one columns">
+      <a href="http://b.hatena.ne.jp/entry/<%= entry.url %>">
+        <img src="http://b.hatena.ne.jp/entry/image/<%= entry.url %>" title="はてなブックマーク - <%= entry.title %>">
+      </a>
+    </div>
+    <div class="two columns">
+      <%= link "Edit", to: entry_path(@conn, :edit, entry) %>
+      <%= link "Delete", to: entry_path(@conn, :delete, entry), method: :delete, data: [confirm: "Are you sure?"] %>
+    </div>
+  </div>
 <% end %>
-  </tbody>
-</table>
