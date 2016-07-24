@@ -27,5 +27,14 @@ config :logger, :console,
 import_config "#{Mix.env}.exs"
 
 config :quantum, cron: [
-    "*/5 * * * *":   {Mix.Tasks.Crawl, :fetch},
+  crawl: [
+    schedule: "*/5 * * * *",
+    task: {Mix.Tasks.Crawl, :run},
+    args: [""],
+  ],
+  cleanup: [
+    schedule: "* 5 * * *",
+    task: {Mix.Tasks.Cleanup, :run},
+    args: [""],
+  ],
 ]

@@ -2,7 +2,7 @@ defmodule Filtration.Commands.Crawl do
   alias Filtration.{Repo, Entry}
   require Logger
 
-  @url "http://b.hatena.ne.jp/entrylist?sort=hot&threshold=3&mode=rss"
+  @url "http://b.hatena.ne.jp/entrylist?sort=hot&threshold=2&mode=rss"
 
   def execute do
     Logger.info "Filtration.Commands.Crawl"
