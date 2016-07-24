@@ -4,6 +4,6 @@ defmodule Mix.Tasks.Check do
 
   def run(_args) do
     Mix.Task.run "app.start"
-    Filtration.Commands.Check.execute
+    Filtration.Commands.Check.execute(true)
   end
 end

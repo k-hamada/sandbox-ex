@@ -2,15 +2,20 @@ defmodule Filtration.Commands.Check do
   require Logger
   alias Filtration.{Repo, Entry, Rule}
 
-  def execute do
+  def execute(all \\ false) do
     Logger.info "Filtration.Commands.Check"
     init_rules(:regex_rules,  Rule |> Rule.only_regex,  &Regex.compile!/1)
     init_rules(:domain_rules, Rule |> Rule.only_domain, &(&1))
 
     entries =
-      Entry
-      |> Entry.is_exclude(false)
-      |> Repo.all
+      if all do
+        Entry
+        |> Repo.all
+      else
+        Entry
+        |> Entry.is_exclude(false)
+        |> Repo.all
+      end
 
     entries_checked_by_domain = entries |> check_by(:domain_rules)
     entries_checked_by_regex  = entries |> check_by(:regex_rules)
