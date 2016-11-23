@@ -2,8 +2,8 @@ defmodule Snowflakex do
   use Bitwise
 
   @epoch 1288834974657
-	@maschine_id_bits 10
-	@sequence_bits 12
+  @maschine_id_bits 10
+  @sequence_bits 12
 
   def generate(maschine_id, sequence) do
     generate(timestamp(), maschine_id, sequence)
