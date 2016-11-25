@@ -10,7 +10,7 @@ defmodule Snowflakex.Server do
   end
 
   def handle_call(:new_id, _from, { maschine_id, sequence }) do
-    new_id = Snowflakex.generate(maschine_id, sequence)
+    new_id = Snowflakex.Snowflakex.generate(maschine_id, sequence)
     next_state = {maschine_id, rem(sequence + 1, 1024) }
     { :reply, new_id, next_state }
   end
